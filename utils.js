@@ -16,13 +16,21 @@ function tableToJson(table) {
 }
 
 const $ajax = {
-    options:{},
+    response:{},
     request:function(http,execute){
         var xhr = new XMLHttpRequest();
         if(execute == undefined || execute == null || typeof execute != 'function' ){throw new Error("callback function not defined")}
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && (this.status == 200 || this.status == 201)){
-                execute(this)
+				
+				$ajax.response = {
+					res:this.response,
+					resType:this.responseType,
+					resText:this.responseText,
+					isValid:(this.statusText == 'OK') ? true :false,
+					status:this.status,
+				}
+				execute(this,$ajax.response)
             }
         }
         const {body,method,url} = http;
