@@ -69,5 +69,5 @@ dataTable.forEach((currentLine,idx)=>{
 	table.appendChild(row);
 });
 		// console.log(table);
-		divDestiny.appendChild(table);
+	divDestiny.appendChild(table);
 }
