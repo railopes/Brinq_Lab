@@ -47,27 +47,21 @@ const makeGridView =(content,divDestiny)=>{
     const {dataTable} = content;
     const headers = Object.keys(dataTable[0])
     let table = document.createElement('table');
-    let tr = document.createElement('tr');
-    let td = document.createElement('td');
-		var newTable,linha;
-		headers.forEach((e,idx)=>{
-				linha = tr;
-				let th = document.createElement('th');
-				th.innerHTML = e.toUpperCase();
-				let thead = linha.appendChild(th);
-				table.appendChild(linha);
-		});
-dataTable.forEach((currentLine,idx)=>{
-	let row = document.createElement('tr');
-	// console.log(currentLine);
-	headers.forEach((campo,idx)=>{
-		let column = document.createElement('td');
-		column.innerHTML = currentLine[campo];
-		row.appendChild(column);
-
+	headers.forEach((e,idx)=>{
+		let linha = document.createElement('tr');
+		let th = document.createElement('th');
+		th.innerHTML = e.toUpperCase();
+		linha.appendChild(th);
+		table.appendChild(linha);
 	});
-	table.appendChild(row);
-});
-		// console.log(table);
+	dataTable.forEach((currentLine)=>{
+		let row = document.createElement('tr');
+		headers.forEach((campo)=>{
+			let column = document.createElement('td');
+			column.innerHTML = currentLine[campo];
+			row.appendChild(column);
+		});
+		table.appendChild(row);
+	});
 	divDestiny.appendChild(table);
 }
