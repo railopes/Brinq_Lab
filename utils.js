@@ -22,23 +22,14 @@ const $ajax = {
         if(execute == undefined || execute == null || typeof execute != 'function' ){throw new Error("callback function not defined")}
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && (this.status == 200 || this.status == 201)){
-                $.responseText = this.responseText;
-                $.responseType = this.responseType;
-                $.returned = true;
-                // execute(JSON.parse(this.response));
                 execute(this)
             }
         }
         const {body,method,url} = http;
         try{ xhr.onload = http.loading() }catch(e){}
         xhr.open(method,url);
-
-        var body_v2 = JSON.stringify(body)
-        xhr.send(body_v2);
-    },
-    response:{},
-    responseText:"",
-    responseType:""
+        xhr.send(JSON.stringify(body));
+    }
 }
 function nextItem(currentNumber){
 	
