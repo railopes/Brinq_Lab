@@ -34,11 +34,6 @@
 			header:null,
 		}
 		$ajax.request(http,(res)=>{
-			/*
-			console.log(JSON.parse(res.response));
-			const {File} = JSON.parse(res.response)
-			window.location.href = 'ftp://localhost/'+File;
-			*/
 			console.log(res.response);
 		})
 
