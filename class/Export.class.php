@@ -11,20 +11,30 @@
 			$tableData = (array)$data;
 			$fileName = md5(rand(0,10000)).".XLS";
 			$file = fopen($fileName,"a+");
+			
 			for($k=0;$k<count($headers);$k++){
 				$fString = ($k != count($headers)-1) ? $headers[$k]."\t" : $headers[$k]."\n" ;
 				fwrite($file,$fString);
 			}
+			
 			for($x=0;$x<count((array)$data);$x++){
-				$strData = $data[$x]->nome."\t".$data[$x]->senha."\t".$data[$x]->id."\n";
+				
+				$isAr = (array) $data[$x];
+				$strData = '';
+				for($c =0;$c<count($headers);$c++) {
+					$scapeString = ($c != count($headers)-1)?"\t":"\n";
+					
+					$strData .= $isAr[$headers[$c]].$scapeString;
+				}
+				// $strData = $isAr[$headers[0]]."\t".$data[$x]->name."\t".$data[$x]->pass."\n";
 				fwrite($file,$strData);
 			}
 			fclose($file);
 			return json_encode([
-					"Result"=>true,
+					"Result"=>(file_exists($fileName) && filesize($fileName) > 0),
 					"File"=>$fileName,
 					"Linhas"=>count((array)$data),
-					"Headers"=>json_encode($keys)
+					"Headers"=>($keys)
 				]);
 
 		}
