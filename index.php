@@ -33,7 +33,7 @@ session_start();
                 const form_pass = document.querySelector("#form_pass");
 
                 if(form_user.value === null || form_user.value === undefined || form_user.value ='' ){
-                    form_user
+                    // form_user
                 }
             });
     })()
