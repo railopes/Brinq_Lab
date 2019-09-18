@@ -30,7 +30,7 @@ const $ajax = {
 					isValid:(this.statusText == 'OK') ? true :false,
 					status:this.status,
 				}
-				execute(this,$ajax.response)
+				execute(this,$ajax.response);
             }
         }
         const {body,method,url} = http;
@@ -45,9 +45,10 @@ function nextItem(currentNumber){
 const makeGridView =(content,divDestiny)=>{
     const {dataTable} = content;
     const headers = Object.keys(dataTable[0])
-    let table = document.createElement('table');
+	let table = document.createElement('table');
+	let linha = document.createElement('tr');
 	headers.forEach((e,idx)=>{
-		let linha = document.createElement('tr');
+		
 		let th = document.createElement('th');
 		th.innerHTML = e.toUpperCase();
 		linha.appendChild(th);
@@ -62,5 +63,6 @@ const makeGridView =(content,divDestiny)=>{
 		});
 		table.appendChild(row);
 	});
+	divDestiny.innerHTML = '';
 	divDestiny.appendChild(table);
 }
