@@ -21,8 +21,8 @@ session_start();
         <input type="submit" value="Logar-Se">
         <a href="#">Esqueci Minha Senha!</a>
     </form>
-    <input type="button" value="SHOW TABELA" id='showmytable'>
-    <div id="GV"></div>
+<!--     <input type="button" value="SHOW TABELA" id='showmytable'>
+    <div id="GV"></div> -->
 </body>
 
 <script>
@@ -37,24 +37,24 @@ session_start();
                 }
             });
     })()
-    (function(){
+    // (function(){
         
-        document.querySelector('#showmytable').addEventListener('click',(e)=>{
-            const http ={
-                url:'login.php',
-                method:'GET',
-                body:null,
-                loading:function(){
+    //     document.querySelector('#showmytable').addEventListener('click',(e)=>{
+    //         const http ={
+    //             url:'./login.php',
+    //             method:'GET',
+    //             body:null,
+    //             loading:function(){
                     
-                }
-            }
-            $ajax.request(http,(response,XHR)=>{
-                const mydiv = document.querySelector('#GV');
-                makeGridView(JSON.parse(XHR.res),mydiv)
-            });
-        });
-        //console.clear();
-    })();
+    //             }
+    //         }
+    //         $ajax.request(http,(response,XHR)=>{
+    //             const mydiv = document.querySelector('#GV');
+    //             makeGridView(JSON.parse(XHR.res),mydiv)
+    //         });
+    //     });
+    //     //console.clear();
+    // })();
 
     // fetch('login.php').then(function(response) { response.text().then(function(res){console.log(JSON.parse(res))})})
 </script>
