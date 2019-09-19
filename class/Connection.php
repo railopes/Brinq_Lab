@@ -1,8 +1,8 @@
 <?php 
-define('HOST','127.0.0.1');
-define('USER','root');
-define('USER_PASS','');
-define('MYDB','UMC_BRINQUEDOTECA');
+define('HOST','development-umc.mysql.uhserver.com');
+define('USER','coordenacao');
+define('USER_PASS','Umc@508');
+define('MYDB','development_umc');
 function executeDb($sql,$typeQuery,$mode = 5,$values = Array()){
 	// echo HOST."<br/>".USER."<br/>".USER_PASS."<br/>".MYDB."<br/>";
 	$conn = mysqli_connect(HOST,USER,USER_PASS,MYDB);
