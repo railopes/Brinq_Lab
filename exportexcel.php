@@ -1,5 +1,5 @@
 <?php 
-	header("Access-Control-Allow-Origin: 127.0.0.1");
+	header("Access-Control-Allow-Origin: *");
 	require_once("./class/Export.class.php");
 	$_POST = (array)json_decode(file_get_contents("php://input"));
 	if(isset($_POST)){

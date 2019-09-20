@@ -1,3 +1,8 @@
+function ocult_parent(sender){
+	const toOcult = sender.parentNode;
+	toOcult.style.display = 'none';
+}
+
 function tableToJson(table) {
 	var data = [];
 	var headers = [];

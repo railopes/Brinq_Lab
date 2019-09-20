@@ -2,15 +2,38 @@ body{
     margin:0;
     padding: 0;
     font-family:Arial, Helvetica, sans-serif;
-    background-image: url('fundo_login_claro_desfoque.png');
+    /* background-image: url('fundo_login_claro_desfoque.png'); */
     
     
 }
+#alert_login_span{
+    width: 35px;
+    height: 35px;
+    cursor:pointer;
+    background-color: rgba(0,0,0,.2);
+    padding:6px 8px;
+    border-radius:20px;
+}
+#alert_login{
+    cursor:pointer;
+    font-size: 9pt;
+    color:white;
+    padding: 8px 7px;
+    border-radius: 50px;
+    text-align: center;
+    display:visible;
+    background-color: #d9534f;
+}
+form > label{
+    margin-left: 35%;
+    color: #0275d8;
+}
 form{
+    height: 350px;
     display: column;
     float:left;
     margin-left: 40%;
-    margin-top: 12%;
+    margin-top: 8%;
     padding: 35px 50px 55px 50px;
     background-color:rgba(255,255,255,1);
     
