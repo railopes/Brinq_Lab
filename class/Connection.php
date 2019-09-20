@@ -31,7 +31,7 @@ function executeDb($sql,$typeQuery,$mode = 5,$values = Array()){
 		}
 		
 		// echo $result;
-		return ($typeQuery) ? Array("afected_rows"=>(!is_bool($result))?mysqli_num_rows($result):$result,"Query"=>$sequel,"row"=>mysqli_fetch_assoc($result)) : mysqli_fetch_all($result,MYSQLI_ASSOC) ;
+		return ($typeQuery) ? Array("afected_rows"=>(!is_bool($result))?mysqli_num_rows($result):$result,"Query"=>$sequel,"row"=>(!is_bool($result))?mysqli_fetch_assoc($result):$result) : mysqli_fetch_all($result,MYSQLI_ASSOC) ;
 	}else{
 		die;
 		if (mysqli_connect_errno()) {
