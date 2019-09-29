@@ -1,0 +1,45 @@
+
+<div class='_sidebar_'>
+	<div class="sidebar_header">
+		
+	</div>
+	<hr>
+	<ul class='sidebar_menu'>
+		<li><input type="button"  value="Home"></li>
+		<hr>
+		<li><input type="button" value="Agenda"></li>
+		<hr>
+		<li><input type="button" value="usuarios"></li>
+		<hr>
+		<li><input type="button" value="Estoque"></li>
+		<hr>
+		<li>
+			<div><span><span id='tree_toogle'>&#09;+&#09;</span>Relatorios</span></div>
+			<div>
+				<span><input type="button" value="Agendamento"></span>
+				<span><input type="button" value="Estoque"></span>
+			</div>
+		</li>
+		<hr>
+		<li><input type="button"  value="Sair"></li>
+	</ul>
+</div>
+
+
+<script>
+	const sidebar_menu = document.querySelector('.sidebar_menu');
+	const sidebar_menu_li = sidebar_menu.querySelectorAll('li');
+	const hiden_buttons = sidebar_menu_li[4].querySelectorAll('div')[1];
+	const _div_drop_down = sidebar_menu_li[4].querySelector("div");
+	_div_drop_down.onclick  = (ev)=>{
+		let _buttons = sidebar_menu_li[4].querySelectorAll('div')[1];
+		if(_buttons){
+			_buttons.outerHTML  = '';
+			document.querySelector('#tree_toogle').innerHTML = '&#09;+&#09;';
+		}else{
+			sidebar_menu_li[4].appendChild(hiden_buttons);
+			document.querySelector('#tree_toogle').innerHTML = '&#09;-&#09;';
+		}
+	};
+sidebar_menu_li[4].querySelector("div").click();
+</script>
