@@ -3,11 +3,11 @@
 session_start();
 if(!empty($_SESSION) && isset($_SESSION)){
     if($_SESSION['name'] == false){
-            header('Location: ./index.php');
+            header('Location: ../index.php');
             exit();        
     }
 }
-require_once("class/Connection.php");
+require_once("../class/Connection.php");
 if(isset($_POST) && !empty($_POST)){
     $user = preg_replace('/[^[:alnum:]_\s]/', '',$_POST['user_name']);
     $password = md5($_POST['user_password']);
@@ -30,10 +30,10 @@ if(!isset($bult)&& !empty($bult)){
     
 }else{
     if(isset($_SESSION) && !empty($_SESSION)){
-        echo "<br/><a href='logout.php'>Desloga-se</a>"; 
+        echo "<br/><a href='./logout.php'>Desloga-se</a>"; 
     }else{
         $_SESSION['name'] = false;
-        header("Location: ./index.php");
+        header("Location: ../index.php");
         exit();
     }
 }
