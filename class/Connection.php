@@ -4,13 +4,13 @@ define('USER','coordenacao');
 define('USER_PASS','Umc@508');
 define('MYDB','development_umc');
 function executeDb($sql,$typeQuery,$mode = 5,$values = Array()){
-	// echo HOST."<br/>".USER."<br/>".USER_PASS."<br/>".MYDB."<br/>";
+	
 	$conn = mysqli_connect(HOST,USER,USER_PASS,MYDB);
 	if($conn){
 		try {
 			switch($mode){
 				case 1:/* select*/
-				$result =  mysqli_query($conn,$sql );
+				$result = mysqli_query($conn,$sql );
 				
 					break;
 				case 2:/* insert*/
@@ -29,8 +29,6 @@ function executeDb($sql,$typeQuery,$mode = 5,$values = Array()){
 		} catch (Exception $err) {
 			return null;
 		}
-		
-		// echo $result;
 		return ($typeQuery) ? Array("afected_rows"=>(!is_bool($result))?mysqli_num_rows($result):$result,"Query"=>$sequel,"row"=>(!is_bool($result))?mysqli_fetch_assoc($result):$result) : mysqli_fetch_all($result,MYSQLI_ASSOC) ;
 	}else{
 		die;

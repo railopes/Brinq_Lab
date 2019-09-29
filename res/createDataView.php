@@ -50,7 +50,7 @@
 			const jsonTable = tableToJson(minha_tabela);
 			let http = {
 				method:'POST',
-				url:"http://localhost/exportexcel.php",
+				url:"./exportexcel.php",
 				body:jsonTable,
 				header:null,
 			}
