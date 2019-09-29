@@ -67,7 +67,7 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 		box-shadow: 2px 2px 15px black;
 	}
 	.my-bg{
-		background: url('../../CSS/img_fundo.jpg') no-repeat center center fixed;
+		background: url('./CSS/img_fundo.jpg') no-repeat center center fixed;
 		background-size: cover;
 	}	
 	.my-bg h1, .my-bg h6,.my-bg label{
