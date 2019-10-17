@@ -1,10 +1,10 @@
 
-<?php 
+<?php
 session_start();
 if(!empty($_SESSION) && isset($_SESSION)){
     if($_SESSION['name'] == false){
             header('Location: ../index.php');
-            exit();        
+            exit();
     }
 }
 require_once("../class/Connection.php");
@@ -26,14 +26,14 @@ if(!isset($bult)&& !empty($bult)){
     if(!$bult){
         echo json_encode($resposta);
     }
-    
-    
+
+
 }else{
     if(isset($_SESSION) && !empty($_SESSION)){
-        echo "<br/><a href='./logout.php'>Desloga-se</a>"; 
+        header("Location: /home.php");
     }else{
         $_SESSION['name'] = false;
-        header("Location: ../index.php");
+        header("Location: /");
         exit();
     }
 }
