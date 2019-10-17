@@ -8,10 +8,11 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	<title>LPP - UMC Universidade</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 </head>
 
 
@@ -74,7 +75,12 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 		user-select: none;
 	}
 </style>
+<script type="text/javascript">
+
+</script>
+
 <script src="/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
 <script src="/bootstrap/js/popper.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 </body>
 </html>
