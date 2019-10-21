@@ -1,7 +1,8 @@
 <?php
 session_start();
 if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
-    header("Location: ./res/login.php");
+    // header("Location: ./res/login.php");
+    echo "<script>window.location.href='/res/login.php'</script>";
     exit();
 }
 ?>
@@ -12,6 +13,7 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link href="/bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
 	<title>LPP - UMC Universidade</title>
 </head>
 
@@ -22,7 +24,7 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 		<div class="row ">
 			<div class="w-100 mt-md-5 mt-5"></div>
 
-			<div class="col-10 offset-1 col-md-4 offset-md-4 text-dark text-center bg-light mt-md-5 mt-5 border rounded-lg my-shadow">
+			<div class="col-10 offset-1 col-md-3 offset-md-4 text-dark text-center bg-light mt-md-5 mt-5 border rounded-lg my-shadow">
 
 				<h1>LPP</h1>
 				<h6>UMC - Universidade</h6>
@@ -42,17 +44,20 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 						}
 					}
 					?>
-					<form method="post" action="./res/login.php" >
-						<div class="form-group">
-							<label for="input_user">Usuario</label>
-							<input type="text" autofocus class="form-control" id="input_user" name='user_name' required placeholder="Usuario">
-						</div>
-						<div class="form-group">
-							<label for="input_pass">Senha</label>
-							<input type="password" class="form-control" id="input_pass" name='user_password' required placeholder="Senha">
-						</div>
-						<button type="submit" class="btn btn-outline-primary px-5">Entrar</button>
-
+					<form method="post" action="./res/login.php">
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+              </div>
+              <input type="text" autofocus class="form-control" id="input_user" name='user_name' required placeholder="Usuario">
+            </div>
+              <div class="input-group mb-2">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" id="input_pass" name='user_password' required placeholder="Senha">
+              </div>
+						<button type="submit" class="btn btn-outline-primary px-4" style="font-size:15pt">Entrar <i class="fa fa-sign-in"></i></button>
 					</form>
 
 					<br>
