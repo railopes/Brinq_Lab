@@ -1,6 +1,8 @@
-body {
-	background: rgba(164,166,176,.6);
-  	font-size: 0.9rem;
+.page-content{
+		background: rgba(164,166,176,.6);
+}
+body{
+	font-size: 0.9rem;
 }
 .page-wrapper .sidebar-wrapper,
 .sidebar-wrapper .sidebar-brand > a,
