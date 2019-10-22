@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 session_start();
 if(!empty($_SESSION) && isset($_SESSION)){
     if($_SESSION['name'] == false){
-      echo "<script>window.location.href='/'</script>";
+      echo "<script>window.location.href='../'</script>";
             // header('Location: /');
             exit();
     }
@@ -32,10 +32,10 @@ if(!isset($bult)&& !empty($bult)){
     }
 }else{
     if(isset($_SESSION) && !empty($_SESSION)){
-        header("Location: /home.php");
+        header("Location: ../home.php");
     }else{
         $_SESSION['name'] = false;
-        header("Location: /");
+        header("Location: ../");
         exit();
     }
 }
