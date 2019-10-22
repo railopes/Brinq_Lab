@@ -82,7 +82,7 @@
       <div class="sidebar-menu">
         <ul>
           <li class="">
-            <a href="/home.php">
+            <a href="./home.php">
               <i class="fa fa-home "></i>
               <span>Home</span>
             </a>
@@ -104,7 +104,7 @@
             </div>
           </li>
           <li class="">
-            <a href="home.php/?t=usuarios">
+            <a href="./home.php/?t=usuarios">
               <i class="fa fa-users"></i>
               <span>usuarios</span>
             </a>
