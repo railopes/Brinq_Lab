@@ -1,5 +1,5 @@
 <?php
-require_once("Crud.class.php");
+require_once("./Crud.class.php");
 require_once("../class/Usuarios.class.php");
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
