@@ -2,7 +2,7 @@
 session_start();
 if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
     // header("Location: ./res/login.php");
-    echo "<script>window.location.href='/res/login.php'</script>";
+    echo "<script>window.location.href='./res/login.php'</script>";
     exit();
 }
 ?>
@@ -12,8 +12,8 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-  <link href="/bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <link href="./bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
 	<title>LPP - UMC Universidade</title>
 </head>
 
@@ -84,8 +84,8 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 
 </script>
 
-<script src="/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
-<script src="/bootstrap/js/popper.min.js"></script>
+<script src="./bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+<script src="./bootstrap/js/popper.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 </body>
 </html>

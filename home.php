@@ -3,7 +3,7 @@
   $estaLogado = require_once("./class/logged.php");
   if(!$estaLogado){
     // header("Location: /");
-    echo "<script>window.location.href='/'</script>";
+    echo "<script>window.location.href='./'</script>";
     exit();
   }
 ?>
@@ -15,19 +15,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LPP - UMC Universidade</title>
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
 
 
     <!-- dattables dependeces -->
 
-    <script src="\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="\bootstrap\DataTables\DataTables-1.10.20\css\dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="\bootstrap\DataTables\datatables.min.css"/>
-    <script src="\bootstrap\DataTables\DataTables-1.10.20\js\jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="\bootstrap\DataTables\datatables.min.js"></script>
-    <script src="/bootstrap/js/popper.min.js" charset="utf-8"></script>
-    <script src="/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src=".\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
+    <link rel="stylesheet" href=".\bootstrap\DataTables\DataTables-1.10.20\css\dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href=".\bootstrap\DataTables\datatables.min.css"/>
+    <script src=".\bootstrap\DataTables\DataTables-1.10.20\js\jquery.dataTables.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src=".\bootstrap\DataTables\datatables.min.js"></script>
+    <script src="./bootstrap/js/popper.min.js" charset="utf-8"></script>
+    <script src="./bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 
 
 
@@ -213,7 +213,7 @@
         ?>
         <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary" name="button"><i class="fa fa-user-plus"></i> Cadastrar</button>
         <?php
-          require_once("teste.php");
+          require_once("./teste.php");
         }
        ?>
   </main>

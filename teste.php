@@ -2,12 +2,12 @@
   // session_start();
   $estaLogado = require_once("./class/logged.php");
   if(!$estaLogado){
-    echo "<script>window.location.href='/'</script>";
+    echo "<script>window.location.href='./'</script>";
     exit();
   }else{
     if($_SESSION['profileVersion'] == 1 || $_SESSION['profileVersion'] == 2){
       echo "<script>alert('Voce não possui permissao para acessar esta pagina!')
-        window.location.href = '/index.php'
+        window.location.href = './index.php'
       </script>";
       // header("Location: /index.php");
       // exit();
@@ -21,14 +21,14 @@
     <meta charset="utf-8">
     <title> Teste datatables </title>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" charset="utf-8"></script> -->
-    <script src="bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/DataTables/datatables.min.css"/>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap\fontawesome\css\font-awesome.min.css">
+    <script src=".\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap\fontawesome\css\font-awesome.min.css">
     <!-- <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css"> -->
-    <script src="bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="bootstrap/DataTables/datatables.min.js"></script>
+    <script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script>
 
 
 
@@ -80,7 +80,7 @@
     }
 
     async function getMetadata(){
-      var mydata = await $.ajax("/Api_v2/Tela_Usuario.php/");
+      var mydata = await $.ajax("./Api_v2/Tela_Usuario.php/");
       return mydata;
 
     }

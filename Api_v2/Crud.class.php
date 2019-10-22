@@ -1,5 +1,5 @@
 <?php
-require_once("Connection.php");
+require_once("./Connection.php");
 class Crud
 {
   private function insert($table,$columns=array(),$values=array()){

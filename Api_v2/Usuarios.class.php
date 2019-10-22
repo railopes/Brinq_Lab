@@ -1,5 +1,5 @@
 <?php
-require 'Connection.php';
+require './Connection.php';
 function insertInto($table,$columns=array(),$values=array()){
 	$myColumns = '('.preg_replace('/(\w+)/','`${1}`',implode(',',$columns)).')';
 	$myValues = '( ';
