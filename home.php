@@ -221,7 +221,7 @@
 </div>
 <!-- page-wrapper -->
 </body>
-<link href="/CSS/home-config.css" rel="stylesheet">
-<script src="/JS/dashboard-init.js"></script>
+<link href="./CSS/home-config.css" rel="stylesheet">
+<script src="./JS/dashboard-init.js"></script>
 
 </html>
