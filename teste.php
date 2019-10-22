@@ -13,6 +13,7 @@
       // exit();
     }
   }
+  unset($_GET);
 ?>
 <!DOCTYPE html>
 
