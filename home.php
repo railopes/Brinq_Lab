@@ -221,6 +221,7 @@
         ?>
         <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary" name="button"><i class="fa fa-user-plus"></i> Cadastrar</button>
         <?php
+          unset($_GET);
           require_once("./teste.php");
         }
        ?>
