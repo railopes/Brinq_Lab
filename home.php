@@ -29,7 +29,15 @@
     <script src="./bootstrap/js/popper.min.js" charset="utf-8"></script>
     <script src="./bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 
-
+  <!-- DEPENDECNIAS DA INTERFACE DE USUARIOS -->
+    <script src=".\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css"  href="./bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/DataTables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css"  href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"  href="./bootstrap\fontawesome\css\font-awesome.min.css">
+    <script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script>
+  <!--  -->
 
 
 </head>
