@@ -10,6 +10,7 @@
         window.location.href = './index.php'
       </script>";
       // header("Location: /index.php");
+      exit;
       // exit();
     }
   }
@@ -81,7 +82,7 @@
     }
 
     async function getMetadata(){
-      var mydata = await $.ajax("./Api_v2/Tela_Usuario.php/");
+      var mydata = await $.ajax("/Api_v2/Tela_Usuario.php/");
       return mydata;
 
     }
@@ -93,6 +94,7 @@
 
     async function _run(){
     mydata = await getMetadata();
+    await console.log(mydata)
     await mydata;
     mydata.forEach(ar=>{
       var cSpan = document.createElement('span');
