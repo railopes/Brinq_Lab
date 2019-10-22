@@ -110,6 +110,7 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
               myrtabela.row.add(ITEM).draw();
           },1000)
           $("#addModal").modal('hide');
+          console.log($("#addModal").modal)
           document.querySelector("#form_cad_user").classList.remove("was-validated");
           document.querySelector("#form_cad_user").reset();
           $("#alert_finish").modal('show');
@@ -118,7 +119,7 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
         document.querySelector("#form_cad_user").classList.remove("was-validated");
         document.querySelector("#form_cad_user").reset();
         // $("#alert_finish").modal('show');
-        alert("Ocorreu algo errado!");
+        alert("Usuário ou email já cadastrados!");
       }
 
     }
