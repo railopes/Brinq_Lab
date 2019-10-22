@@ -1,18 +1,22 @@
 <?php
+
 define('HOST','development-umc.mysql.uhserver.com');
 define('USER','coordenacao');
 define('USER_PASS','Umc@508');
 define('MYDB','development_umc');
+
+/*
+define('HOST','localhost');
+define('USER','root');
+define('USER_PASS','');
+define('MYDB','development_umc');
+*/
 function executeDb($sql,$typeQuery,$insert){
 
 	$conn = mysqli_connect(HOST,USER,USER_PASS,MYDB);
 	if($conn){
 		try {
-			if(!$insert){
 				$result =  mysqli_query($conn,$sql);
-			}else{
-				$result =  mysqli_query($conn,$sql);
-			}
 		} catch (Exception $err) {
 			return null;
 		}
@@ -23,7 +27,8 @@ function executeDb($sql,$typeQuery,$insert){
 				"row"=>(!is_bool($result))?mysqli_fetch_assoc($result):$result,
 				"userId"=>(is_bool($result) && $insert) ? mysqli_insert_id($conn): null,
 			) :
-			mysqli_fetch_all($result,MYSQLI_ASSOC);
+			mysqli_fetch_all($result);
+			// MYSQLI_ASSOC/para obter estrutra json de chave valor assosiativo
 
 	}else{
 		die;

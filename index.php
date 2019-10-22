@@ -1,17 +1,20 @@
-<?php 
+<?php
 session_start();
 if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
-    header("Location: ./res/login.php");
+    // header("Location: ./res/login.php");
+    echo "<script>window.location.href='/res/login.php'</script>";
     exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Site Em BootStrap</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link href="/bootstrap/fontawesome/css/font-awesome.css" rel="stylesheet">
+	<title>LPP - UMC Universidade</title>
 </head>
 
 
@@ -21,39 +24,42 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 		<div class="row ">
 			<div class="w-100 mt-md-5 mt-5"></div>
 
-			<div class="col-10 offset-1 col-md-4 offset-md-4 text-dark text-center bg-light mt-md-5 mt-5 border rounded-lg my-shadow">
+			<div class="col-10 offset-1 col-md-3 offset-md-4 text-dark text-center bg-light mt-md-5 mt-5 border rounded-lg my-shadow">
 
 				<h1>LPP</h1>
 				<h6>UMC - Universidade</h6>
 				<hr>
-					<?php 
-					if(isset($_SESSION['name'])){ 
+					<?php
+					if(isset($_SESSION['name'])){
 						if($_SESSION['name'] == false){
 					?>
 						<div class="alert alert-danger" role="alert">
 						Usuário ou senha inválido
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&#128473;</span>
-						</button>					
+						</button>
 						</div>
-					<?php 
+					<?php
 						unset($_SESSION['name']);
 						}
 					}
 					?>
-					<form method="post" action="./res/login.php" >
-						<div class="form-group">
-							<label for="input_user">Usuario</label>
-							<input type="text" autofocus class="form-control" id="input_user" name='user_name' required placeholder="Usuario">
-						</div>
-						<div class="form-group">
-							<label for="input_pass">Senha</label>
-							<input type="password" class="form-control" id="input_pass" name='user_password' required placeholder="Senha">
-						</div>
-						<button type="submit" class="btn btn-outline-primary px-5">Entrar</button>
-
+					<form method="post" action="./res/login.php">
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+              </div>
+              <input type="text" autofocus class="form-control" id="input_user" name='user_name' required placeholder="Usuario">
+            </div>
+              <div class="input-group mb-2">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" id="input_pass" name='user_password' required placeholder="Senha">
+              </div>
+						<button type="submit" class="btn btn-outline-primary px-4" style="font-size:15pt">Entrar <i class="fa fa-sign-in"></i></button>
 					</form>
-					
+
 					<br>
 				<div class="w-100"></div>
 				<a href="#" class="btn btn-light">Esqueci Minha Senha!</a>
@@ -67,16 +73,19 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 		box-shadow: 2px 2px 15px black;
 	}
 	.my-bg{
-		background: url('./CSS/img_fundo.jpg') no-repeat center center fixed;
+		background: url('/CSS/img_fundo.jpg') no-repeat center center fixed;
 		background-size: cover;
-	}	
+	}
 	.my-bg h1, .my-bg h6,.my-bg label{
 		user-select: none;
 	}
 </style>
-<!-- BOOSTRAP DEPENDENCIES -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+<script type="text/javascript">
+
+</script>
+
+<script src="/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/bootstrap/js/popper.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 </body>
 </html>
