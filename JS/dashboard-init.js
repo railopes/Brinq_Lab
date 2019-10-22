@@ -83,7 +83,7 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
   var final_v2 = JSON.stringify(final);
     $.ajax({
     type: "POST",
-    url: "http://localhost:8000/Api_v2/Tela_Usuario.php/?type=cad",
+    url: "/Api_v2/Tela_Usuario.php/?type=cad",
     data: final_v2,
     success:async function(rsp){
       if(rsp.userId > 0){

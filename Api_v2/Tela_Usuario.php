@@ -1,7 +1,7 @@
 <?php
 require_once("Crud.class.php");
 require_once("../class/Usuarios.class.php");
-
+header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
 class Tela_Usuario extends Crud{
   function __construct(){
