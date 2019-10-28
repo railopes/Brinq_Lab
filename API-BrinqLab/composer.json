@@ -1,0 +1,6 @@
+{
+    "name": "raiba/api-brinq-lab",
+    "require": {
+        "coffeecode/router": "1.0.7"
+    }
+}

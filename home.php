@@ -6,6 +6,20 @@
     echo "<script>window.location.href='./'</script>";
     exit();
   }
+  function getFunctionSys(){
+    switch($_SESSION['profileVersion']){
+      case 1:
+        return "Professor";
+        break;
+      case 2:
+        return "Monitor";
+        break;
+      case 3:
+        return "Coordenador";
+        break;
+    }
+  }
+  $functionSys = getFunctionSys();
 ?>
 
 <html lang="pt-br">
@@ -35,9 +49,8 @@
     <link rel="stylesheet" type="text/css" href="./bootstrap/DataTables/datatables.min.css"/>
     <link rel="stylesheet" type="text/css"  href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"  href="./bootstrap\fontawesome\css\font-awesome.min.css">
-    <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css"> 
-    <script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script> 
+    <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css">
+
   <!--  -->
 
 
@@ -45,14 +58,14 @@
 
 <body>
 <div class="page-wrapper  theme chiller-theme toggled ">
-  <a id="show-sidebar" class="btn btn-md btn-dark" href="#">
+  <a id="show-sidebar" class="btn btn-md btn-danger sideBar_modification" href="#">
     <i class="fa fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
         <a href="#">LPP - UMC Universidade</a>
-        <div id="close-sidebar">
+        <div id="close-sidebar" class="sideBar_modification">
           <i class="fa fa-times"></i>
         </div>
       </div>
@@ -64,19 +77,7 @@
             	<strong> <?php echo $_SESSION['name']; ?></strong>
           	</span>
           <span class="user-role">
-            <?php
-              switch($_SESSION['profileVersion']){
-                case 1:
-                  echo "Professor";
-                  break;
-                case 2:
-                  echo "Monitor";
-                  break;
-                case 3:
-                  echo "Coordenador";
-                  break;
-              }
-            ?>
+            <?php echo $functionSys; ?>
           </span>
         </div>
       </div>
@@ -105,7 +106,7 @@
             </div>
           </li>
           <li class="">
-            <a href="home.php/?t=usuarios">
+            <a onclick="gotouser()" href="#">
               <i class="fa fa-users"></i>
               <span>usuarios</span>
             </a>
@@ -141,19 +142,52 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="_titulo_edit">Alterar Usuário</h5>
+                <button type="button" class="close" id="form_edit_user_close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                ...
+
+              <div class="modal-body" >
+              <form id="form_edit_user" method='post' action='' class="needs-validation" novalidate>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="edit_name_">nome</label>
+                    <input type="text" min=5 class="form-control" id="edit_name_" placeholder="nome" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="edit_pass_">Senha</label>
+                    <input type="password" min=8 max=12 class="form-control" id="edit_pass_" placeholder="senha" >
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-8">
+                    <label for="edit_mail_">Email</label>
+                    <input type="email" class="form-control" id="edit_mail_" placeholder="name@example.com" >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="edit_acesso_">Nivel De Acesso</label>
+                    <select class="form-control " id="edit_acesso_" >
+                      <option value="">Selecione</option>
+                      <option value="1">Professor</option>
+                      <option value="2">Monitor</option>
+                      <option value="3">Coordenador</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" style="cursor:pointer" class="btn btn-outline-danger" id="edit_user_cancel_btn" data-dismiss="modal">
+                    Cancelar&ensp;
+                    <i class="fa fa-close"></i>
+                  </button>
+                  <button type="submit" style="cursor:pointer" class="btn btn-info" id="edit_user_btn">
+                    Salvar&ensp;
+                    <i class="fa fa-save"></i>
+                  </button>
+                </div>
+              </form>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
-            </div>
           </div>
         </div>
 
@@ -222,7 +256,7 @@
         ?>
         <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary" name="button"><i class="fa fa-user-plus"></i> Cadastrar</button>
         <?php
-          require_once("./teste.php");
+          require_once(__DIR__."tela_usuarios.php");
         }
        ?>
   </main>
@@ -232,5 +266,6 @@
 </body>
 <link href="/CSS/home-config.css" rel="stylesheet">
 <script src="/JS/dashboard-init.js"></script>
-
+<script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script>
 </html>

@@ -11,7 +11,7 @@ define('USER','root');
 define('USER_PASS','');
 define('MYDB','development_umc');
 */
-function executeDb($sql,$typeQuery,$insert){
+function database_query($sql,$typeQuery,$insert){
 
 	$conn = mysqli_connect(HOST,USER,USER_PASS,MYDB);
 	if($conn){
@@ -19,13 +19,15 @@ function executeDb($sql,$typeQuery,$insert){
 				$result =  mysqli_query($conn,$sql);
 		} catch (Exception $err) {
 			return null;
+			exit;
 		}
-		$sequel = true;
+		// $sequel = true;
+
 		return ($typeQuery) ?
 			Array(
 				"afected_rows"=>(!is_bool($result)) ? mysqli_num_rows($result):$result,
 				"row"=>(!is_bool($result))?mysqli_fetch_assoc($result):$result,
-				"userId"=>(is_bool($result) && $insert) ? mysqli_insert_id($conn): null,
+				"userId"=>(is_bool($result) && $insert) ? mysqli_insert_id($conn): "null",
 			) :
 			mysqli_fetch_all($result);
 			// MYSQLI_ASSOC/para obter estrutra json de chave valor assosiativo

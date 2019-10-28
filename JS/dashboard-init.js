@@ -11,12 +11,26 @@ jQuery(function ($) {
         $(this).parent().addClass("active");
       }
     });
-  $("#close-sidebar").click(function() {$(".page-wrapper").removeClass("toggled");});
-  $("#show-sidebar").click(function() {$(".page-wrapper").addClass("toggled");});
+
+  //sidebarMenu InVisivel
+  $("#close-sidebar").click(async function() {
+    await drawDatatable();
+    $(".page-wrapper").removeClass("toggled");
+    await drawDatatable();
+  });
+
+  //sidebarMenu visivel
+  $("#show-sidebar").click(async function() {
+    await drawDatatable();
+    $(".page-wrapper").addClass("toggled");
+    await drawDatatable();
+  });
 });
+
 document.querySelector('.sidebar-wrapper .sidebar-header .user-info i').onclick = (ev)=>{
   //Abrir modal de definições da conta do usuarios
 }
+
 document.querySelector('#logout-button').onclick = (ev)=>{
   ev.preventDefault();
   window.location.href="/res/logout.php";
@@ -49,7 +63,61 @@ document.querySelector("#form_cad_user_close").onclick =ev=>{
     });
   }, false);
 })();
+function serializeEditModal(){
+  // {body:{name:'',pass:'',mail:'',access:0}}
+  let inputEdit = document.querySelectorAll(
+    '#form_edit_user .form-row .form-group input, #form_edit_user .form-row .form-group select'
+  );
+  let endReq = {body:{}};
+  let entryKeyPairs = [];
+  inputEdit.forEach(elm=>{
+    if(elm.value != '' && elm.value != null ){
+      entryKeyPairs.push({field:elm.id,val:elm.value});
+    }
+  });
+  console.log(entryKeyPairs);
+  entryKeyPairs.forEach(currentElm =>{
+    if(currentElm.field == 'edit_pass_') {
+      endReq.body['pass'] = currentElm.val;
+    };
+    if(currentElm.field == 'edit_name_') {endReq.body['name'] = currentElm.val};
+    if(currentElm.field == 'edit_mail_') {endReq.body['mail'] = currentElm.val};
+    if(currentElm.field == 'edit_acesso_') {endReq.body['access'] = currentElm.val};
+  });
+  return endReq;
+  // alert(endReq);
+  // console.log(endReq);
+  // return;
+}
+document.querySelector("#form_edit_user").onsubmit = async function(_ev_){
+  // alert("Ola_mundo_editoe!");
+  let form_edit_user_close= document.querySelector("#form_edit_user");
+   if (form_edit_user.checkValidity() == true){
+     let _id = window.localStorage.formEdit.split(',')[0];
 
+     let objectReq = await serializeEditModal();
+
+     let reqBody =JSON.stringify(objectReq);
+     _ev_.preventDefault();
+     let resp = await $.ajax({
+       method:'post',
+       url:`http://umcbrinquedoteca.online/API-BrinqLab/user/update/${_id}`,
+       data:reqBody,
+       success:async function(reponseEv){
+         if(reponseEv.afected_rows == true){
+           $("#editModal").modal('hide');
+           await initializeTable();
+           alert("usuario alterado com sucesso!");
+         }
+       },
+       error: function(e){
+        alert(e.Error);
+       }
+     });
+
+   }
+
+}
 document.querySelector('#form_cad_user').onsubmit = async function(EV){
   var toSend=[];
 
@@ -59,10 +127,9 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
     );
     inputCad.forEach((elm)=>{
       toSend.push({field:elm.id,val:elm.value});
-      // toSend.push({elm.id:elm.value});
     });
   }
-   var final = {body:{name:'',pass_:'',mail:'',access:0}};
+ var final = {body:{name:'',pass:'',mail:'',access:0}};
   toSend.forEach((elm)=>{
       switch ( elm.field){
         case '_name_':
@@ -72,7 +139,7 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
           final.body.access = elm.val;
           break;
         case '_pass_':
-          final.body.pass_ = elm.val;
+          final.body.pass = elm.val;
           break;
         case '_mail_':
           final.body.mail = elm.val;
@@ -83,32 +150,13 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
   var final_v2 = JSON.stringify(final);
     $.ajax({
     type: "POST",
-    url: "/Api_v2/Tela_Usuario.php/?type=cad",
+    url: "http://umcbrinquedoteca.online/API-BrinqLab/users/add",
     data: final_v2,
     success:async function(rsp){
       if(rsp.userId > 0){
           var myrtabela = new $.fn.dataTable.Api( "#example" );
           var novosDados;
-          await setTimeout(async function(){
-            novosDados = await $.ajax("/Api_v2/Tela_Usuario.php/");
-            await novosDados;
-              myrtabela.data = novosDados;
-              var ITEM = novosDados[novosDados.length-1];
-              var cSpan = document.createElement('span');
-              var i = document.createElement('i');
-                i.setAttribute('class','fa fa-pencil text-warning fa-2x');
-                i.setAttribute('onclick',`edittableItem('${ITEM[0]}')`);
-                i.setAttribute('data-toggle','modal');
-                i.setAttribute('data-target','#editModal');
-                cSpan.appendChild(i);
-                cSpan.append(' ');
-              var i2 = document.createElement('i');
-                i2.setAttribute('class','fa fa-trash text-danger fa-2x');
-                i2.setAttribute('onclick',`edittableItem('${ITEM[0]}')`);
-              cSpan.appendChild(i2);
-              ITEM.push(cSpan.outerHTML);
-              myrtabela.row.add(ITEM).draw();
-          },1000)
+          await initializeTable();
           $("#addModal").modal('hide');
           console.log($("#addModal").modal)
           document.querySelector("#form_cad_user").classList.remove("was-validated");
@@ -124,6 +172,31 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
 
     }
   });
-
-
 }
+function gotouser(){
+  window.location.href="/home.php/?t=usuarios";
+}
+
+function drawDatatable(){
+  try{
+
+    let _hasTable = new $.fn.dataTable.Api( "#example" );
+      _hasTable.draw();
+      _hasTable.columns.adjust();
+    return true;
+    }catch(e){
+      return e;
+    }
+}
+
+let sidebar_toogle = document.querySelectorAll(".sideBar_modification");
+sidebar_toogle.forEach(side_bar_btn=>{
+  side_bar_btn.addEventListener('click',async ev=>{
+    await setTimeout(async function(){
+      ev.stopPropagation();
+      ev.preventDefault();
+      let ctype = await drawDatatable();
+      console.log(`datatable has modified ${new Date().toLocaleDateString()} params Is ${ctype}`);
+    },270);
+  })
+})
