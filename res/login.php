@@ -9,7 +9,7 @@ if(!empty($_SESSION) && isset($_SESSION)){
             exit();
     }
 }else{
-  require(__DIR__."/Api-BrinqLab/Connection.php");
+  require("../Api-BrinqLab/Connection.php");
 }
 if(isset($_POST) && !empty($_POST)){
     $user = preg_replace('/[^[:alnum:]_\s]/', '',$_POST['user_name']);
