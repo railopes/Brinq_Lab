@@ -44,7 +44,7 @@ if(isset($_SESSION['name']) && isset($_SESSION['profileVersion'])){
 						}
 					}
 					?>
-					<form method="post" action="./res/login.php">
+		<form method="post" action="./res/login.php">
             <div class="input-group mb-3">
               <div class="input-group-append">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
