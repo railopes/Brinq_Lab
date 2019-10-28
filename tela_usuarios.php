@@ -6,42 +6,22 @@
     exit();
   }else{
     if($_SESSION['profileVersion'] == 1 || $_SESSION['profileVersion'] == 2){
-      echo "<script>alert('Voce não possui permissao para acessar esta pagina!')
-        window.location.href = './index.php'
+      echo "<script>
+        window.location.href = '/';
+        alert('Voce não possui permissao para acessar esta pagina!');
       </script>";
-      // header("Location: /index.php");
       exit;
-      // exit();
     }
   }
   unset($_GET);
 ?>
-<!DOCTYPE html>
-
-<html lang="pt_BR" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title> Teste datatables </title>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" charset="utf-8"></script> 
-    <script src=".\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css"  href="./bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./bootstrap/DataTables/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css"  href="./bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css"  href="./bootstrap\fontawesome\css\font-awesome.min.css">
-    <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css"> 
-    <script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script>  -->
-
-
-
-  </head>
 
   <body>
-    <table id="example" class="table  table-hover table-md table-light" style="width:100%">
+    <table id="example" class="table table-hover table-light table-responsive-sm table-responsive-md" style="width:100%">
 
       <thead class="thead-dark">
-        <tr>
-          <td colspan="5" class='text-center bg-dark text-light'>Usuarios</td>
+        <tr role="row">
+          <td colspan="6" class='text-center bg-dark text-light'>Usuarios</td>
         </tr>
         <tr>
           <th>ID</th>
@@ -78,52 +58,60 @@
     var table;
     function edittableItem(id_table){
       window.localStorage.setItem("formEdit",currentRow);
-      console.log(id_table);
     }
 
     async function getMetadata(){
-      var mydata = await $.ajax("/Api_v2/Tela_Usuario.php/");
+      var mydata = await $.ajax("http://localhost/API-BrinqLab/users");
       return mydata;
 
     }
 
     $('#editModal').on('show.bs.modal',e=>{
-      document.querySelector('#exampleModalLabel').innerText = "Usuário: "+window.localStorage.getItem('formEdit').split(',')[1];
-
+        document.querySelector("#form_edit_user").reset();
+        document.querySelector('#edit_name_').value = window.localStorage.formEdit.split(',')[1];
+        document.querySelector('#edit_mail_').value = window.localStorage.formEdit.split(',')[2];
+        document.querySelector('#edit_acesso_').value = window.localStorage.formEdit.split(',')[3];
     })
+    async function deletItem(_id){
+      if(confirm(`Deseja realmente Exluir o Usário: ${_id}`)){
+      let response = await $.ajax({
+        method:'post',
+        url:`http://localhost/API-BrinqLab/user/delete/${_id}`
+      });
+      if(response.afected_rows == true){
+        alert("Usuario Excluido com sucesso!");
+        await initializeTable();
+      }
+    }
+    }
 
     async function _run(){
     mydata = await getMetadata();
-    await console.log(mydata)
     await mydata;
     mydata.forEach(ar=>{
       var cSpan = document.createElement('span');
       var i = document.createElement('i');
         i.setAttribute('class','fa fa-pencil text-warning fa-2x');
         i.setAttribute('onclick',`edittableItem('${ar[0]}')`);
-        // data-toggle="modal" data-target="#editModal
         i.setAttribute('data-toggle','modal');
         i.setAttribute('data-target','#editModal');
         cSpan.appendChild(i);
         cSpan.append(' ');
       var i2 = document.createElement('i');
         i2.setAttribute('class','fa fa-trash text-danger fa-2x');
-        i2.setAttribute('onclick',`edittableItem('${ar[0]}')`);
+        i2.setAttribute('onclick',`deletItem('${ar[0]}')`);
       cSpan.appendChild(i2);
         ar.push(cSpan.outerHTML);
       })
-
-        // document.querySelector('#loader-icon').outerHTML = '';
-
     }
- // lengthMenu: [[5, 10, 15, -1], [5, 10, 15, "tudo"]] // dom: 'Bfrtip', //dom:'<fl<t>Bp>'
- // $(document).ready
-    document.addEventListener('DOMContentLoaded',async function() {
-        await  _run();
-        setTimeout(function(){
+  async function initializeTable(){
+    // dom: '<fl<t>iBp>',
+      await setTimeout(async function(){
+        await _run();
         table = $('#example').DataTable({
-          dom: '<fl<t>iBp>',
+          dom: '<fl<t>ip>',
           responsive:true,
+          destroy:true,
           scrollY:true,
           lengthMenu: [[5, 10, 15, -1], [5, 10, 15, "Completo"]],
           language:{url:"http://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"},
@@ -141,16 +129,17 @@
           data:mydata
          });
        },1000);
+      $('#example tbody').on( 'mouseenter', 'tr', function () {
+          currentRow = this.innerText.split("\t");
+      } );
+      window.onresize = e=>{
 
-        $('#example tbody').on( 'mouseenter', 'tr', function () {
-            currentRow = this.innerText.split("\t");
-        } );
-        window.onresize = e=>{
-           table.columns.adjust();
-        }
+        table.draw();
+        table.columns.adjust();
+      }
+    }
+    document.addEventListener('DOMContentLoaded',async function() {
+        initializeTable();
       });
-
-
     </script>
   </body>
-</html>
