@@ -15,7 +15,7 @@ if(isset($_POST) && !empty($_POST)){
     $user = preg_replace('/[^[:alnum:]_\s]/', '',$_POST['user_name']);
     $password = md5($_POST['user_password']);
     $newquery = "SELECT * FROM usuarios WHERE nome = '$user' AND senha ='$password'";
-    $resposta =  ["dataTable"=>executeDb($newquery,true,true)];
+    $resposta =  ["dataTable"=>database_query($newquery,true,true)];
     // echo "<script>alert('".var_dump($newquery)."')</script>";
     // exit();
     if($resposta['dataTable']['afected_rows'] == 1){
