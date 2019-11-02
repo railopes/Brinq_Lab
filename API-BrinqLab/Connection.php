@@ -1,16 +1,16 @@
 <?php
-
+/*
 define('HOST','development-umc.mysql.uhserver.com');
 define('USER','coordenacao');
 define('USER_PASS','Umc@508');
 define('MYDB','development_umc');
+*/
 
-/*
 define('HOST','localhost');
 define('USER','root');
 define('USER_PASS','');
 define('MYDB','development_umc');
-*/
+/* */
 function database_query($sql,$typeQuery,$insert){
 
 	$conn = mysqli_connect(HOST,USER,USER_PASS,MYDB);
