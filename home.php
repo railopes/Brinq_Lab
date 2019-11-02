@@ -106,6 +106,12 @@
             </div>
           </li>
           <li class="">
+            <a onclick="" href="#">
+              <i class="fa fa-cubes"></i>
+              <span>Estoque</span>
+            </a>
+          </li>
+          <li class="">
             <a onclick="gotouser()" href="#">
               <i class="fa fa-users"></i>
               <span>usuarios</span>
@@ -253,12 +259,38 @@
         </div>
         <?php
           if(isset($_GET['t']) && $_GET['t'] == 'usuarios'){
+            if($_SESSION['profileVersion'] != 3){
         ?>
+          <h4>Voce não possui acesso a esta pagina!</h4>
+          <a href='/' class='btn btn-outline-warning'>
+              <i class='fa fa-rotate-left'></i>
+              &ensp;clique aqui para retornar&ensp;
+          </a>
+          <p id='return-timer-usuarios'>Retornando em <span></span> segundos</p>
+          <script>
+            let timerInput = document.querySelector('#return-timer-usuarios span');
+            let x =30;
+            function timer(){
+              timerInput.innerHTML = x;
+              if((x-1)>0){
+                setTimeout(function(){timer();},1000);
+              }else{
+                window.location.href = '/';
+              }
+              x--;
+            }
+            timer();
+          </script>
+          <?php
+              unset($_GET['t']);
+            }else{
+          ?>
         <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary" name="button"><i class="fa fa-user-plus"></i> Cadastrar</button>
         <?php
-          require_once(__DIR__."tela_usuarios.php");
+            require_once(__DIR__."/tela_usuarios.php");
+          }
         }
-       ?>
+        ?>
   </main>
   <!-- page-content" -->
 </div>
