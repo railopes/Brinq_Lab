@@ -1,3 +1,5 @@
+// const server_url = "umcbrinquedoteca.online";
+const server_url = "localhost";
 jQuery(function ($) {
 
     $(".sidebar-dropdown > a").click(function() {
@@ -101,7 +103,7 @@ document.querySelector("#form_edit_user").onsubmit = async function(_ev_){
      _ev_.preventDefault();
      let resp = await $.ajax({
        method:'post',
-       url:`http://umcbrinquedoteca.online/API-BrinqLab/user/update/${_id}`,
+       url:`http://${server_url}/API-BrinqLab/user/update/${_id}`,
        data:reqBody,
        success:async function(reponseEv){
          if(reponseEv.afected_rows == true){
@@ -150,7 +152,7 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
   var final_v2 = JSON.stringify(final);
     $.ajax({
     type: "POST",
-    url: "http://umcbrinquedoteca.online/API-BrinqLab/users/add",
+    url: `http://${server_url}/API-BrinqLab/users/add`,
     data: final_v2,
     success:async function(rsp){
       if(rsp.userId > 0){
