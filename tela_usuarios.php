@@ -100,7 +100,7 @@
     mydata.forEach(ar=>{
       var cSpan = document.createElement('span');
       var i = document.createElement('i');
-        i.setAttribute('class','fa fa-pencil text-warning fa-2x');
+        i.setAttribute('class','fa fa-edit text-warning fa-2x');
         i.setAttribute('onclick',`edittableItem('${ar[0]}')`);
         i.setAttribute('data-toggle','modal');
         i.setAttribute('data-target','#editModal');
@@ -125,6 +125,8 @@
                   responsive:true,
                   destroy:true,
                   scrollY:true,
+                  fixedHeader: true,
+                  scrollX:true,
                   lengthMenu: [[5, 10, 15, -1], [5, 10, 15, "Completo"]],
                   language:{url:"http://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"},
                   buttons: [
