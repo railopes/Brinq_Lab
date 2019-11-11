@@ -52,7 +52,10 @@
     <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css">
 
   <!--  -->
-
+  <script src="./design_ui/serializeForms.js"></script>
+  <script src="./design_ui/sinceDatatables.js"></script>
+  <script src="./design_ui/design_ui_utils.js"></script>
+ 
 
 </head>
 
@@ -290,12 +293,16 @@
             require_once(__DIR__."/tela_usuarios.php");
           }
         }
+        if(isset($_GET['t']) && $_GET['t'] == 'estoque'){
+          include_once(__DIR__."/design_ui/index.html");
+        }
         ?>
   </main>
   <!-- page-content" -->
 </div>
 <!-- page-wrapper -->
 </body>
+
 <link href="/CSS/home-config.css" rel="stylesheet">
 <script src="/JS/dashboard-init.js"></script>
 <script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
