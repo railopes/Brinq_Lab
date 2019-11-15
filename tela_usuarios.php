@@ -10,7 +10,7 @@
 
   <body>
   <!-- table-responsive-sm table-responsive-md -->
-    <table id="example" class="table table-hover table-bordr-bottom table-light " style="width:100%">
+    <table id="example" class="table table-hover table-border-bottom table-light " style="width:100%">
 
       <thead class="thead-dark">
         <tr role="row">

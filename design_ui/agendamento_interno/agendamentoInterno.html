@@ -5,22 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agendamento. Interno</title>
-    <script src="../bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="../bootstrap\DataTables\DataTables-1.10.20\css\dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap\DataTables\datatables.min.css" />
-    <script src="../bootstrap\DataTables\DataTables-1.10.20\js\jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../bootstrap\DataTables\datatables.min.js"></script>
-    <script src="../bootstrap/js/popper.min.js" charset="utf-8"></script>
-    <script src="../bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fh-3.1.6/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fh-3.1.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- DEPENDECNIAS DA INTERFACE DE USUARIOS -->
-    <script src="..\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css"
-        href="../bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/DataTables/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap\fontawesome\css\font-awesome.min.css">
-    <link rel="stylesheet" href="..\bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css">
+  
 </head>
 <body>
     
@@ -29,5 +21,81 @@
     <!-- alertar estoque baixo nome em vermleho nasd listas. -->
     <!-- Campos Externo: [Diff: Responsavel,nomeInsti,RG responsavel, Nº alunos, Eliminar Externos: [materiais,dsiciplina]] -->
     <!-- campos interno: materiais,disciplina,decricao,dataEHoraInci -range,id -->
+    <div class="container">
+    <div id="calendario">
+            <!-- table#agenda.table.table-stripped.table-hover>(tr>thead>th*6)+tbody-->
+        <table id="agenda" class="table table-stripped table-hover table-responsive">
+            <tr>
+                <thead class='thead thead-dark text-center'>
+                    <th>id</th>
+                    <th>usuario</th>
+                    <th>descricao</th>
+                    <th>disciplinas</th>
+                    <th>Nº alunos</th>
+                    <th>Horario</th>
+                    <th>Materiais</th>
+                    <th>Instituição</th>
+                    <th>RG</th>
+                    <th>actions</th>
+                </thead>
+            </tr>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
 </body>
+<script>
+    const genButton =(id,f,S)=>{
+        return `<span onclick="${f}(${id})"><i class='fa ${S}'></i></span>`
+    }
+    function arrayModify(arr){
+        arr[2]=(genButton(arr[0],'editmodal','fa-edit fa-2x icon-Control-Dt'));
+        return arr;
+    }
+    function refreshDados(){
+            tabelaAgenda.ajax.reload();
+        }
+    let tabelaAgenda = null;
+    (async function(){
+        // let agenda = await fetch("http://localhost/API/calendar");
+       tabelaAgenda = await $('#agenda').DataTable({
+            lengthChange: false,
+            pageLength:1,
+            dom:'f<"#modo">tp',
+            scrollX:true,
+            ajax:{
+                url:"http://localhost/API/calendar",
+                dataSrc:function(dados){
+                    
+                    dados.data.forEach(dado=>{
+                        dado.push(genButton(dado[0],"refreshDados",'fa-key fa-2x text-warning'))
+                        dado.forEach((bruto,idx)=>{
+                            if(idx === 5) { 
+                                dado[idx] = new Date(bruto).toLocaleString();
+                            }
+                        });
+                        // console.log(dado)
+                        
+                    })
+                    return dados.data
+                },
+
+            }
+        })
+        document.querySelector("#modo").innerHTML = `<button type='button' class='btn btn-primary' onclick='refreshDados()'><i class='fa fa-user-plus'></i></button>`;
+        
+    })()
+</script>
+<style>
+.icon-Control-Dt{
+    cursor:pointer;
+    user-select: none;
+}
+.icon-Control-Dt:hover{
+    color:gold;
+}
+.icon-Control-Dt:focus{
+    color: green;
+}
+</style>
 </html>

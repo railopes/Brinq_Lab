@@ -4,7 +4,7 @@ class Agenda
 {
 	private $dataAgendada,$horaAgendada,$professor,$materia,$materialUsado,$atividade,$totalAlunos,$turma,$nomeInst,$RG,$interno;
 	
-	function __construct(argument)
+	function __construct($argument)
 	{
 		
 	}
