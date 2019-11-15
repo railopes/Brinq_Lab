@@ -1,7 +1,7 @@
 # Specify filepatterns you want git to ignore.
 *.sql
 *.XLS
-
+design_ui/ -r
 /html_bkp_from_homepanel.html
 TESTE_HTML/
 CSS/cores-projeot-lpp.png
