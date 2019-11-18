@@ -1,0 +1,10 @@
+{
+    "body": {
+    	"email":"rai.zeckk@gmail.com",
+    	"emailPassword":"railopes",
+    	"host":"tls://smtp.gmail.com:587",
+    	"auth":"tls",
+    	"port":587,
+    	"charset":"UTF-8"
+    }
+}
