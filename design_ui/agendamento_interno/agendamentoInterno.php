@@ -44,7 +44,7 @@
 </div>
 </body>
 <script>
-    const apiurl = "http://localhost/API/";
+    const apiurl = "http://umcbrinquedoteca.online/API-BrinqLab/";
     const newChildDatatable =D=>{
         // console.log("D:");
         // Regex Capture entre tags html (p)em texto --> new RegExp(/\<p.+\>\"(.+)\"<\/p.+/gm)
@@ -134,7 +134,7 @@
             dom:'f<"#modo">Btp',
             scrollX:true,
             ajax:{
-                url:"http://localhost/API/agenda",
+                url:"http://umcbrinquedoteca.online/API-BrinqLab/agenda",
                 dataSrc:function(dados){
                     
                     dados.data.forEach(dado=>{
