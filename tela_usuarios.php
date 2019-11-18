@@ -49,8 +49,8 @@
     <script type="text/javascript">
     var currentRow = [],mydata = null,windowUserIn = null;
     var table;
-    // const  myServerUrl = "umcbrinquedoteca.online";
-    const  myServerUrl = "localhost";
+    const  myServerUrl = "umcbrinquedoteca.online";
+    // const  myServerUrl = "localhost";
     function edittableItem(id_table){
       window.localStorage.setItem("formEdit",currentRow);
     }

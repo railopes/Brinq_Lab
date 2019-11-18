@@ -1,5 +1,5 @@
-// const server_url = "umcbrinquedoteca.online";
-const server_url = "localhost";
+const server_url = "umcbrinquedoteca.online";
+// const server_url = "localhost";
 jQuery(function ($) {
 
     $(".sidebar-dropdown > a").click(function() {
