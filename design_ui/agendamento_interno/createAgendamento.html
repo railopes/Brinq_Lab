@@ -138,7 +138,7 @@ async function verificardia(){
         ).toLocaleString('pt-BR');
         minhadatafinal = minhadatafinal.replace(/(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})\:(\d{2})/g,'$3-$2-$1_$4-$5-$6');
         console.log(minhadatafinal);
-        let response = await fetch(`http://localhost/API/agendamento/diavalido/${minhadatafinal}`,{
+        let response = await fetch(`http://umcbrinquedoteca.online/API-BrinqLab/agendamento/diavalido/${minhadatafinal}`,{
             "method":"post"
         });
         let resp = await response.json();
@@ -166,7 +166,7 @@ async function verificardia(){
 }
 async function renderOptions(selectElmId){
     try{
-        let response = await fetch("http://localhost/API/agendamento/materiais");
+        let response = await fetch("http://umcbrinquedoteca.online/API-BrinqLab/agendamento/materiais");
         allOptions = await response.json();
         let selectMaterial = document.querySelector(selectElmId);
         allOptions.forEach((elm,idx)=>{
