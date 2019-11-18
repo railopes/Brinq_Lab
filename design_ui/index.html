@@ -4,7 +4,7 @@
 
 <body>
 
-    <div class="container mt-3">
+    <div class="mt-3">
             <button type="button"  id='btnAddCart'class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addItemEstoqueModal">
                     <i class="fa fa-cart-plus"></i>&ensp;Novo Item
             </button>
@@ -24,8 +24,8 @@
                     <i class="fa fa-toggle-off text-success" id='onlyUso'></i>
                     
                 </div>
-                <div class="alert alert-light col-sm-6  mt-2 col-md-3 text-center">
-                    Somente Estoque Baixo &ensp;
+                <div class="alert alert-light col-sm-6  mt-2 col-md-4 text-center">
+                    Somente Estoque Baixo <br>
                     <i class="fa fa-toggle-off text-danger mt-2" id='onlyminustorage'></i>
                 </div>
             </div>
@@ -108,17 +108,17 @@
         <!-- datatables -->
         <table id="tabelaMateriais" class="table table-hover table-bordr-bottom table-light " style="width:100%">
 
-                <thead class="thead-dark">
+                <thead class="thead-dark text-center">
                   <tr role="row">
                     <td colspan="8" class='bg-dark text-light text-center'>Estoque</td>
                   </tr>
-                  <tr>
+                  <tr class="text-center">
                     <th>ID</th>
                     <th>Descricao</th>
                     <th>Qtd. Atual</th>
                     <th>Qtd. Minima</th>
-                    <th>Adicionado:</th>
                     <th>tipo</th>
+                    <th>Adicionado:</th>
                     <th>Atualizado:</th>
                     <th>Ações</th>
                   </tr>
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded",async ev=>{
             arr[1] = `<span class="text-danger font-weight-bold text-uppercase">${arr[1]}</span>`;
         }
         let styleProp =`style="cursor:pointer"`;
-        arr[4] = new Date(arr[4]).toLocaleString();
+        arr[5] = new Date(arr[5]).toLocaleString();
         arr[6] = new Date(arr[6]).toLocaleString();
         arr[7] = 
         `
@@ -394,10 +394,10 @@ onlyuso.onclick = function(ev){
     let classes = onlyuso.classList;
     if(classes.contains("fa-toggle-off")){
         onlyuso.classList.replace("fa-toggle-off","fa-toggle-on");
-        procuraMaterialTipo(5,valorProcurado);
+        procuraMaterialTipo(4,valorProcurado);
     }else{
         onlyuso.classList.replace("fa-toggle-on","fa-toggle-off");
-        procuraMaterialTipo(5,"");
+        procuraMaterialTipo(4,"");
     }
 }
 $('#tabelaMateriais tbody').on( 'click', 'tr', function () {

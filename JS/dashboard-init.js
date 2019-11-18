@@ -178,6 +178,12 @@ document.querySelector('#form_cad_user').onsubmit = async function(EV){
 function gotouser(){
   window.location.href="/home.php/?t=usuarios";
 }
+function gotoestoque(){
+  window.location.href="/home.php/?t=estoque";
+}
+function gotoagenda(){
+  window.location.href = '/home.php/?t=agenda';
+}
 
 function drawDatatable(){
   try{

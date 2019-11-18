@@ -15,3 +15,4 @@ alter table usuarios add column usuario_valido boolean not null;
 update usuarios set usuario_valido = true where id >= 1;
 update usuarios set usuario_valido = false where id = 1;
 select * from usuarios;
+
