@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Agendamento. Interno</title>
+    
+ <!--
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fh-3.1.6/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fh-3.1.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+-->
+</head>
+<body>
+<div class="container-fluid">
+
+<button type="button" data-toggle="modal" data-target="#addAgendaModal" class="btn btn-primary" name="button">
+    <i class="fa fa-calendar-plus-o"></i>
+    Agendar
+</button>
+<div class="modal fade" id="addAgendaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agenda_titulo_add">novo agendamento</h5>
+            </div>
+            <div class="container-fluid">
+                <form action="#" method="post" id='novoAgenamento' class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <h6 class="text-center">Horario</h6>
+                        <div class="form-row mt-1 mx-3">
+                            <div class="col-2">&ensp;</div>
+                            <input type="date" min="" required class="col-4  form-control form-control-sm" name="diaSelecionado" id="diaSelecionado">
+                            &ensp;
+                            <select name="horarioSelecionado" required id="horarioSelecionado" class="col-3 custom-select custom-select-sm">
+                                <!--
+                                    19:00 a 19:50 
+                                    19:50 a 20:40
+                                    20:50 a 21:40
+                                    21:40 a 22:30
+                                -->
+                                <option value="19:00">19:00</option>
+                                <option value="19:50">19:50</option>
+                                <option value="20:50">20:50</option>
+                                <option value="21:40">21:40</option>
+                            </select>
+                            &ensp;
+                            <button type="button" class="btn btn-light btn-sm col-2" onclick="verificardia()" id="agVerificarData"><i class="fa fa-lg fa-check-circle-o"></i></button>
+                        </div>
+                    </div>
+                    <div class="for-group col-12 mt-1">
+                        <label for="agNome_resp">Responável</label>
+                        <input type="text" required name="nome_resp" id="agNome_resp" class=" form-control custom-control">
+                    </div>
+                    <div class="form-group col-12 mt-1">
+                            <label for="agEmail_resp">Email Responável</label>
+                        <input type="email" required name="email_resp" id="agEmail_resp" class=" form-control custom-control">
+                    </div>
+
+                    <div class="form-group col-12 mt-1">
+                        <label for="agInstituicao_resp">Instituição Responável</label>
+                        <input type="text" required value="UMC - Universidade Mogi Das Cruzes" name="instituicao_resp" id="agInstituicao_resp" class=" form-control custom-control">
+                    </div>
+
+                    <div class="form-group ">
+                            <h6 class="text-center">Materiais</h6>
+                            <div id="materiais_section">
+                                    <div class="mx-3 form-row row-select  mt-1">
+                                        <select  required name="selection_materiais" id="selection_materiais" onchange="valideRowSelect()" class="custom-select col-6 form-control-sm mb-1">
+                                            <option value="">selecione</option>
+                                        </select>&ensp;
+                                        <input required type="number" class="form-control col-2 mb-1 form-control-sm" name="selection_qtd" min="1" max="">
+                                        <div class="col-3">
+                                            <button type="button" id="moreMaterial" class="btn btn-sm btn-outline-info" onclick="createNode()"><i class="fa fa-plus fa-sm"></i></button>
+                                            <button type="button"class="btn btn-sm btn-outline-danger" onclick="removeNode()"><i class="fa fa-trash fa-sm"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <h6 class="text-center">uma breve descricao </h6>
+                        <textarea required name="desc_atividade" id="agDesc_atividade" class="form-control" rows="5" maxlength="200"></textarea>
+                        <span id="descCountChars">200</span>
+                    </div>
+                    <div class="form-group modal-footer">
+                        <button type="reset" data-dismiss="modal" id="agClose" class="btn btn-outline-danger btn-md">
+                            <i class="fa fa-calendar-times-o"></i>
+                            &ensp;Cancelar
+                        </button>
+                        <button type="submit"id="agAdd" class="btn btn-success btn-md">
+                            <i class="fa fa-calendar-check-o"></i>
+                            &ensp;Agendar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<style>
+    .row-select span{
+        cursor: pointer;
+    }
+    .row-select span:hover{
+        background-color: rgba(100,100,100,.7);
+    }
+</style>
+<script>
+let allOptions=null;
+let currentDay = new Date().toLocaleString('pt-BR').split(" ")[0];
+let nextday = currentDay.
+                replace(/^\d{2}/,
+                    parseInt(currentDay.match(/^(\d{2})/g)[0])+1
+                );
+document.querySelector("#diaSelecionado").min = nextday;
+document.querySelector("#diaSelecionado").value = nextday.replace(/(\d{2})\/(\d{2})\/(\d{4})/g,"$3-$2-$1");
+document.querySelector('#agDesc_atividade').onkeyup =ev=>{
+    document.querySelector("#descCountChars").innerText = 
+    200-
+    (document.querySelector('#agDesc_atividade').value.length);
+}
+
+async function verificardia(){
+    try{
+        let btnverifica = document.querySelector("#agVerificarData");
+        btnverifica.innerHTML = "<i class='fa fa-lg text-primary fa-spin fa-circle-o-notch'></i>";
+        let minhadatafinal = new Date( 
+            document.querySelector("#diaSelecionado").value+
+            "T"+
+            document.querySelector("#horarioSelecionado").value
+        ).toLocaleString('pt-BR');
+        minhadatafinal = minhadatafinal.replace(/(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})\:(\d{2})/g,'$3-$2-$1_$4-$5-$6');
+        console.log(minhadatafinal);
+        let response = await fetch(`http://localhost/API/agendamento/diavalido/${minhadatafinal}`,{
+            "method":"post"
+        });
+        let resp = await response.json();
+        console.log(resp);
+        if(resp.success){
+            try{
+                btnverifica.classList.replace("btn-light","btn-outline-success");
+                btnverifica.classList.replace("btn-outline-danger","btn-outline-success");
+            }catch(e){}
+            btnverifica.innerHTML = "<i class='fa fa-lg fa-check-circle-o'></i>";
+        }else{
+            try{
+                btnverifica.classList.replace("btn-light","btn-outline-danger");
+                btnverifica.classList.replace("btn-outline-success","btn-outline-danger");
+            }catch(e){}
+            btnverifica.innerHTML = "<i class='fa fa-lg fa-check-circle-o '></i>";
+        }
+    }catch(e){
+        let btnverifica = document.querySelector("#agVerificarData");
+        setTimeout(ev=>{
+            btnverifica.innerHTML = "<i class='fa fa-lg fa-check-circle-o text-danger'></i>";
+        },3000);
+    }
+    
+}
+async function renderOptions(selectElmId){
+    try{
+        let response = await fetch("http://localhost/API/agendamento/materiais");
+        allOptions = await response.json();
+        let selectMaterial = document.querySelector(selectElmId);
+        allOptions.forEach((elm,idx)=>{
+            let opt = document.createElement('option');
+            opt.value = parseInt(elm[0]);
+            opt.text = elm[1];
+            opt['data-max-mode']=elm[2];
+            selectMaterial.appendChild(opt);
+        })
+    }catch(e){
+        console.log(e);
+    }
+}
+function serializemateriais(){
+    let allmateriaisbody = {materiais:[]};
+    let nodelist = document.querySelectorAll(".row-select>select, .row-select>input[type='number']");
+    console.log(nodelist);
+    for(let e=0;e<nodelist.length;e++){
+        if(nodelist[e] instanceof HTMLSelectElement){
+            if(nodelist[e+1].value > 0){
+
+            
+            allmateriaisbody.materiais.push(
+                {
+                    "id":nodelist[e].value,
+                    "uso":nodelist[e+1].value
+                }
+            )
+            }
+        }
+    }
+    return (allmateriaisbody);
+
+}
+function getAllValuesToCad(){
+    let commons = document.querySelectorAll(
+        "\
+        #diaSelecionado,\
+        #horarioSelecionado,\
+        #agNome_resp,\
+        #agEmail_resp,\
+        #agInstituicao_resp,\
+        #agDesc_atividade"
+    );
+    return (
+        Array.from(commons).
+                map(common => ({"commonId":common.id,"val":common.value})).
+                concat(serializemateriais())
+        );
+
+}
+function serializeRequestAgendamento(){
+    let items = getAllValuesToCad();
+    let body = {};
+    for(let i =0;i<items.length-1;i++){
+        if(items[i].commonId == "horarioSelecionado"){
+            body["diaSelecionado"] = body["diaSelecionado"]+" "+items[i].val;
+        }else{
+            body[items[i].commonId] = items[i].val;
+        }
+        
+    }
+    body['materiais'] = items[items.length-1].materiais;
+    console.log(body);
+}
+function valideRowSelect(){
+    
+    let selects = document.querySelectorAll('.row-select>select');
+    for(let i =selects.length-2;i>=0;i--){
+        let currentValue = window.event.target.value;
+        if(selects[i].value == currentValue){
+            alert("Este Material ja foi selecionado!");
+            window.event.target.value = '';
+            return false;
+        } 
+    }
+    return true;
+}
+function removeNode(){
+    if(
+        Array.from(document.querySelectorAll('.row-select')).length == 1
+    ) return false;
+    let excludeElement = window.event.target.parentNode.parentNode.parentNode;
+    if(
+        excludeElement.classList.length > 0 && 
+        excludeElement.classList.contains('row-select')
+        ){
+            excludeElement.outerHTML = '';
+        }
+    
+    
+    return true;
+}
+function createNode(){
+    
+    let rowSelect = document.querySelector('.row-select');
+    let newrow = rowSelect.cloneNode(true);
+    newrow.querySelector("input[type='number']").value = '';
+    document.querySelector('#materiais_section').appendChild(
+        newrow
+    );
+
+    
+}
+let novoAgenamento = document.querySelector('#novoAgenamento');
+novoAgenamento.onsubmit = function(event){
+    if (novoAgenamento.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+    novoAgenamento.classList.add('was-validated');
+}
+renderOptions('#selection_materiais');
+</script>
+</html>

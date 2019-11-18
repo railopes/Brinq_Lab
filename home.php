@@ -3,7 +3,7 @@
   $estaLogado = require_once("./class/logged.php");
   if(!$estaLogado){
     // header("Location: /");
-    echo "<script>window.location.href='./'</script>";
+    echo "<script>window.location.href='/'</script>";
     exit();
   }
   function getFunctionSys(){
@@ -29,30 +29,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LPP - UMC Universidade</title>
-    <link href="/bootstrap\css\bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap\css\bootstrap.css" rel="stylesheet">
     <link href="/bootstrap\fontawesome\css\font-awesome.css" rel="stylesheet">
 
 
-    <!-- dattables dependeces -->
+    <!-- datatables dependeces -->
 
-    <script src="/bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="/bootstrap\DataTables\DataTables-1.10.20\css\dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/bootstrap\DataTables\datatables.min.css"/>
-    <script src="/bootstrap\DataTables\DataTables-1.10.20\js\jquery.dataTables.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/bootstrap\DataTables\datatables.min.js"></script>
+    <script src="/bootstrap/js/jquery-3.4.1.js" charset="utf-8"></script>
+    <link  href="/bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link  href="/bootstrap/DataTables/datatables.css" type="text/css" rel="stylesheet"/>
+    <script src="/bootstrap/DataTables/DataTables-1.10.20\js\jquery.dataTables.js" charset="utf-8"></script>
+    <script src="/bootstrap/DataTables/datatables.js" type="text/javascript" charset="utf-8"></script>
     <script src="/bootstrap/js/popper.min.js" charset="utf-8"></script>
-    <script src="/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-
-  <!-- DEPENDECNIAS DA INTERFACE DE USUARIOS -->
-  <script src=".\bootstrap\js\jquery-3.4.1.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css"  href="./bootstrap/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./bootstrap/DataTables/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css"  href="./bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css"  href="./bootstrap\fontawesome\css\font-awesome.min.css">
-    <link rel="stylesheet" href="bootstrap\DataTables\DataTables-1.10.20\css\jquery.dataTables.min.css">
-
-  <!--  -->
-
+    <script src="/bootstrap/js/bootstrap.js" charset="utf-8"></script>
 
 </head>
 
@@ -97,13 +86,19 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="#">Interno</a>
+                  <a onclick="gotoagenda()" href="#">Interno</a>
                 </li>
                 <li>
                   <a href="#">Externo</a>
                 </li>
               </ul>
             </div>
+          </li>
+          <li class="">
+            <a onclick="gotoestoque()" href="#">
+              <i class="fa fa-cubes"></i>
+              <span>Estoque</span>
+            </a>
           </li>
           <li class="">
             <a onclick="gotouser()" href="#">
@@ -253,19 +248,51 @@
         </div>
         <?php
           if(isset($_GET['t']) && $_GET['t'] == 'usuarios'){
+            if($_SESSION['profileVersion'] != 3){
         ?>
+          <h4>Voce não possui acesso a esta pagina!</h4>
+          <a href='/' class='btn btn-outline-warning'>
+              <i class='fa fa-rotate-left'></i>
+              &ensp;clique aqui para retornar&ensp;
+          </a>
+          <p id='return-timer-usuarios'>Retornando em <span></span> segundos</p>
+          <script>
+            let timerInput = document.querySelector('#return-timer-usuarios span');
+            let x =30;
+            function timer(){
+              timerInput.innerHTML = x;
+              if((x-1)>0){
+                setTimeout(function(){timer();},1000);
+              }else{
+                window.location.href = '/';
+              }
+              x--;
+            }
+            timer();
+          </script>
+          <?php
+              unset($_GET['t']);
+            }else{
+          ?>
         <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary" name="button"><i class="fa fa-user-plus"></i> Cadastrar</button>
         <?php
-          require_once(__DIR__."tela_usuarios.php");
+            require_once(__DIR__."/tela_usuarios.php");
+          }
         }
-       ?>
+        if(isset($_GET['t']) && $_GET['t'] == 'estoque'){
+          include_once(__DIR__."/design_ui/index.html");
+        }
+        if(isset($_GET['t']) && $_GET['t'] == 'agenda'){
+          require_once(__DIR__."/agenda.php");
+        }
+        ?>
   </main>
   <!-- page-content" -->
 </div>
 <!-- page-wrapper -->
 </body>
+
 <link href="/CSS/home-config.css" rel="stylesheet">
 <script src="/JS/dashboard-init.js"></script>
-<script src="./bootstrap/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="./bootstrap/DataTables/datatables.min.js"></script>
+
 </html>

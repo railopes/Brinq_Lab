@@ -4,20 +4,13 @@
   if(!$estaLogado){
     echo "<script>window.location.href='./'</script>";
     exit();
-  }else{
-    if($_SESSION['profileVersion'] == 1 || $_SESSION['profileVersion'] == 2){
-      echo "<script>
-        window.location.href = '/';
-        alert('Voce não possui permissao para acessar esta pagina!');
-      </script>";
-      exit;
-    }
   }
   unset($_GET);
 ?>
 
   <body>
-    <table id="example" class="table table-hover table-light table-responsive-sm table-responsive-md" style="width:100%">
+  <!-- table-responsive-sm table-responsive-md -->
+    <table id="example" class="table table-hover table-border-bottom table-light " style="width:100%">
 
       <thead class="thead-dark">
         <tr role="row">
@@ -54,29 +47,45 @@
         }
     </style>
     <script type="text/javascript">
-    var currentRow = [],mydata = null;
+    var currentRow = [],mydata = null,windowUserIn = null;
     var table;
+    const  myServerUrl = "umcbrinquedoteca.online";
+    // const  myServerUrl = "localhost";
     function edittableItem(id_table){
       window.localStorage.setItem("formEdit",currentRow);
     }
 
     async function getMetadata(){
-      var mydata = await $.ajax("http://localhost/API-BrinqLab/users");
+      var mydata = await $.ajax(`http://${myServerUrl}/API-BrinqLab/users`);
       return mydata;
 
     }
 
     $('#editModal').on('show.bs.modal',e=>{
+        function getAcessLevel(){
+          let caseOptions = window.localStorage.formEdit.split(',')[3];
+          switch(caseOptions){
+            case 'Professor':
+              return 1;
+              break;
+            case 'Monitor':
+              return 2;
+              break;
+            case 'Coordenador':
+              return 3;
+              break;
+          }
+        }
         document.querySelector("#form_edit_user").reset();
         document.querySelector('#edit_name_').value = window.localStorage.formEdit.split(',')[1];
         document.querySelector('#edit_mail_').value = window.localStorage.formEdit.split(',')[2];
-        document.querySelector('#edit_acesso_').value = window.localStorage.formEdit.split(',')[3];
+        document.querySelector('#edit_acesso_').value = getAcessLevel();
     })
     async function deletItem(_id){
       if(confirm(`Deseja realmente Exluir o Usário: ${_id}`)){
       let response = await $.ajax({
         method:'post',
-        url:`http://localhost/API-BrinqLab/user/delete/${_id}`
+        url:`http://${myServerUrl}/API-BrinqLab/user/delete/${_id}`
       });
       if(response.afected_rows == true){
         alert("Usuario Excluido com sucesso!");
@@ -91,7 +100,7 @@
     mydata.forEach(ar=>{
       var cSpan = document.createElement('span');
       var i = document.createElement('i');
-        i.setAttribute('class','fa fa-pencil text-warning fa-2x');
+        i.setAttribute('class','fa fa-edit text-warning fa-2x');
         i.setAttribute('onclick',`edittableItem('${ar[0]}')`);
         i.setAttribute('data-toggle','modal');
         i.setAttribute('data-target','#editModal');
@@ -102,44 +111,79 @@
         i2.setAttribute('onclick',`deletItem('${ar[0]}')`);
       cSpan.appendChild(i2);
         ar.push(cSpan.outerHTML);
-      })
+      });
+      return mydata;
     }
   async function initializeTable(){
+    let aTabela;
     // dom: '<fl<t>iBp>',
-      await setTimeout(async function(){
-        await _run();
-        table = $('#example').DataTable({
-          dom: '<fl<t>ip>',
-          responsive:true,
-          destroy:true,
-          scrollY:true,
-          lengthMenu: [[5, 10, 15, -1], [5, 10, 15, "Completo"]],
-          language:{url:"http://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"},
-          buttons: [
-              {
-                extend: 'excelHtml5',
-                exportOptions: { columns: [0,1,2,3] }
-              },
-              {
-                extend: 'pdfHtml5',
-                exportOptions: { columns: [0,1,2,3] }
-              }
-            ],
-          columnDefs: [{targets:4,orderable: false}],
-          data:mydata
-         });
-       },1000);
+      async function iniciarTabela(){
+        let dadosAtuais =  await _run();
+        return ( 
+          $('#example').DataTable({
+                  dom: '<fl<t>iBp>',
+                  responsive:true,
+                  destroy:true,
+                  scrollY:true,
+                  fixedHeader: true,
+                  scrollX:true,
+                  lengthMenu: [[5, 10, 15, -1], [5, 10, 15, "Completo"]],
+                  language:{url:"http://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"},
+                  buttons: [
+                      {
+                        extend: 'excelHtml5',
+                        exportOptions: { columns: [0,1,2,3] }
+                      },
+                      {
+                        extend: 'pdfHtml5',
+                        className:`pdf_button_${windowUserIn}`,
+                        exportOptions: { columns: [0,1,2,3] }
+                      }
+                    ],
+                  columnDefs: [{targets:4,orderable: false}],
+                  data:dadosAtuais
+                }).on('init',async function(evElm){
+                    return $(`#${evElm.target.id}`).DataTable();
+                })
+            );
+      }
+      _aTabela_ = await iniciarTabela();
       $('#example tbody').on( 'mouseenter', 'tr', function () {
           currentRow = this.innerText.split("\t");
       } );
+      
       window.onresize = e=>{
-
-        table.draw();
-        table.columns.adjust();
+        _aTabela_.draw();
+        _aTabela_.columns.adjust();
+      }
+      return _aTabela_
+    }
+    function alterBtnDataTables(btn,newClasses,delClasses){
+      try{
+          let propBtn = btn.classList;
+          propBtn.remove(delClasses);
+          propBtn.add(newClasses);
+          return true;
+      }catch(Err){
+        console.error(Err);
+        return false;
       }
     }
-    document.addEventListener('DOMContentLoaded',async function() {
-        initializeTable();
+    var abx = null;
+    document.addEventListener('DOMContentLoaded',async function(ev) {
+        let btnCmps = ['Excel','PDF']
+        windowUserIn = 'usuarios';
+        await setTimeout(async function(){
+          abx = await initializeTable();
+          await setTimeout(ev=>{
+              abx.on('buttons-action', function ( e, buttonApi, dataTable, node, config ) {
+                console.log(buttonApi.text());
+              })
+          },10);
+        }, 2500);
+        await abx;
+
+        
       });
     </script>
   </body>

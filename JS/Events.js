@@ -7,7 +7,6 @@ function timer(){
   }else{
     window.location.href = 'http://localhost';
   }
-  
   x--;
 }
 timer();
